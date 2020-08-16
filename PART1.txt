@@ -1,0 +1,87 @@
+# 1st Part
+GET /products/_doc/100
+
+# bulk api: 
+# - index will add a doc no matter what
+# - create will create if no duplicate
+POST /_bulk
+{ "index": { "_index": "products", "_id": 200 } }
+{ "name": "Expresso Machine", "price": 199, "in_stock": 5 }
+{ "create": { "_index": "products", "_id": 202 } }
+{ "name": "Milk", "price": 149, "in_stock": 14 }
+
+#content-type: application/x-ndjson and \n
+# u can use _bulk after a ressource to rm the index
+POST /products/_bulk
+{ "update": { "_id": 201 } }
+{ "doc": { "price": 265}}
+{ "delete": { "_id": 200 } }
+
+POST /products/_delete_by_query
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+POST /products/_update_by_query
+{
+  "script": {
+    "source": "ctx._source.in_stock--"
+  },
+  "query": {
+    "match_all": {}
+  }
+}
+
+# search api
+GET /products/_search
+{
+  "query":  {
+    "match_all": {}
+  }
+}
+
+PUT /products
+{
+  "settings":{
+    "number_of_shards": 2,
+    "number_of_replicas": 2
+  }
+}
+
+POST /products/_update/100
+{
+  "doc": {
+    "tags": ["electronics"]
+  }
+}
+
+POST /products/_update/100
+{
+  "script": {
+    "source": "ctx._source.in_stock--"
+  }
+}
+
+POST /products/_update/100
+{
+  "script": {
+    "source": "ctx._source.in_stock = 10"
+  }
+}
+
+POST /products/_update/100
+{
+  "script": {
+    "source": "ctx._source.in_stock -= params.quantity",
+    "params": {
+      "quantity": 4
+    }
+  }
+}
+
+# _cat api to read status of server
+GET /_cat/shards?v
+
+GET /_cat/health?v
