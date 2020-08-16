@@ -59,7 +59,7 @@ GET /reviews/_search
   }
 }
 
-# update mapping
+# adding mapping
 PUT /reviews/_mapping
 {
   "properties": {
