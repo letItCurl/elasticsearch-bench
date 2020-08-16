@@ -1,3 +1,64 @@
+# time stored is not the data used to treat time in elastic shearch
+POST /reviews/_doc/2
+{
+  "ratings": 4.5,
+  "content": "yes review",
+  "product_id": 123,
+  "created_at": "2015-03-27",
+  "author": {
+    "first_name": "hello2",
+    "last_name": "h2ello",
+    "email": "hello@mail.com"
+  }
+}
+
+POST /reviews/_doc/3
+{
+  "ratings": 4.5,
+  "content": "yes review",
+  "product_id": 123,
+  "created_at": "2015-03-27T13:05:45Z",
+  "author": {
+    "first_name": "hello2",
+    "last_name": "h2ello",
+    "email": "hello@mail.com"
+  }
+}
+
+POST /reviews/_doc/4
+{
+  "ratings": 4.5,
+  "content": "yes review",
+  "product_id": 123,
+  "created_at": "2015-03-27T09:05:45+01:00",
+  "author": {
+    "first_name": "hello2",
+    "last_name": "h2ello",
+    "email": "hello@mail.com"
+  }
+}
+
+# if useing unix timestamp: *1000
+POST /reviews/_doc/5
+{
+  "ratings": 4.5,
+  "content": "yes review",
+  "product_id": 123,
+  "created_at": 1436011284000,
+  "author": {
+    "first_name": "hello2",
+    "last_name": "h2ello",
+    "email": "hello@mail.com"
+  }
+}
+
+GET /reviews/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
 # update mapping
 PUT /reviews/_mapping
 {
