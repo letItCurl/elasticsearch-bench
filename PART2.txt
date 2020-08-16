@@ -1,0 +1,65 @@
+# fetch mappings
+GET /reviews/_mapping
+
+# find per field
+GET /reviews/_mapping/field/content
+
+# find nested obj
+GET /reviews/_mapping/field/author.email
+
+POST /reviews/_doc/1
+{
+  "ratings": 4.5,
+  "content": "yes content",
+  "product_id": 123,
+  "author": {
+    "first_name": "hello",
+    "last_name": "hello",
+    "email": "hello@mail.com"
+  }
+}
+
+DELETE /reviews
+
+GET /reviews
+
+GET /reviews/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+# create index with the related interface (mappings)
+PUT /reviews
+{
+  "mappings": {
+    "properties": {
+      "ratings": { "type": "float" },
+      "content": { "type": "text" },
+      "product_id": { "type": "integer"},
+      "author": {
+        "properties": {
+          "first_name": { "type": "text" },
+          "last_name": { "type": "text" },
+          "email": { "type": "keyword" }
+        }
+      }
+    }
+  }
+}
+
+# use analyze api to compose with char_filter->tokenizer->filtert
+POST /_analyze
+{
+ "text": "As far as I know - this happens due to network adapter type. (Don't know why, just my experiance...)",
+ "char_filter": [],
+ "tokenizer": "standard",
+ "filter": ["lowercase"]
+}
+
+POST /_analyze
+{
+ "text": "As far as I know - this happens due to network adapter type. (Don't know why, just my experiance...)",
+ "analyzer": "standard"
+}
