@@ -1,3 +1,30 @@
+# update mapping
+PUT /reviews/_mapping
+{
+  "properties": {
+    "created_at": {"type": "date"}
+  }
+}
+
+GET /reviews/_mapping/field/created_at
+
+# create mappings with dot notation
+PUT /reviews_2
+{
+  "mappings": {
+    "properties": {
+      "ratings": { "type": "float" },
+      "content": { "type": "text" },
+      "product_id": { "type": "integer"},
+      "author.first_name":  { "type": "text" },
+      "author.last_name":  { "type": "text" },
+      "author.email":  { "type": "keyword" }
+    }
+  }
+}
+
+GET /reviews_2/_mapping
+
 # fetch mappings
 GET /reviews/_mapping
 
