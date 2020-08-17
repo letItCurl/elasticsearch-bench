@@ -1,3 +1,36 @@
+# custom analyser
+PUT /analyser_test
+{
+  "settings": {
+    "analysis": {
+     "analyzer": {
+       "my_custom_analyser": {
+         "type": "custom",
+         "char_filter": ["html_strip"],
+         "tokenizer": "standard",
+         "filter": [
+           "lowercase",
+           "stop",
+           "asciifolding"
+           ]
+       }
+     } 
+    }
+  }
+}
+
+POST /_analyze
+{
+  "char_filter": ["html_strip"], 
+  "text": "<h1> hello world </h1>"
+}
+
+POST /analyser_test/_analyze
+{
+  "analyzer": "my_custom_analyser", 
+  "text": "<h1> the hello world àiîî </h1>"
+}
+
 POST /dyn-temp_test/_doc/2
 {
   "in_stock": "56"
