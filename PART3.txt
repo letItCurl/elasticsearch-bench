@@ -1,3 +1,12 @@
+# terms are exact an point to the inverted indices
+GET /products/_search
+{
+  "query": {
+    "term": {
+      "is_active": true
+    }
+  }
+}
 
 GET /products/_search
 {
