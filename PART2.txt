@@ -1,4 +1,31 @@
 # custom analyser
+
+PUT /analyser_test_2
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "french_stop": {
+          "type": "stop",
+          "stopwords": "_french_"
+        }
+      }, 
+     "analyzer": {
+       "my_custom_analyser": {
+         "type": "custom",
+         "char_filter": ["html_strip"],
+         "tokenizer": "standard",
+         "filter": [
+           "lowercase",
+           "french_stop",
+           "asciifolding"
+           ]
+       }
+     } 
+    }
+  }
+}
+
 PUT /analyser_test
 {
   "settings": {
