@@ -1,3 +1,81 @@
+# this changes the original values
+# so that we receive the expected values in the new index
+POST /_reindex
+{
+  "source": {
+    "index": "reviews"
+  },
+  "dest": {
+    "index": "review_new"
+  },
+  "script": {
+    "source": """
+      if (ctx._source.product_id != null) {
+        ctx._source.product_id = ctx._source.product_id.toString();
+      }
+    """
+  }
+}
+
+POST /review_new/_delete_by_query
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+GET /review_new/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+POST /_reindex
+{
+  "source": {
+    "index": "reviews"
+  },
+  "dest": {
+    "index": "review_new"
+  }
+}
+
+PUT /review_new
+{
+  "mappings" : {
+      "properties" : {
+        "author" : {
+          "properties" : {
+            "email" : {
+              "type" : "keyword"
+            },
+            "first_name" : {
+              "type" : "text"
+            },
+            "last_name" : {
+              "type" : "text"
+            }
+          }
+        },
+        "content" : {
+          "type" : "text"
+        },
+        "created_at" : {
+          "type" : "date"
+        },
+        "product_id" : {
+          "type" : "keyword"
+        },
+        "ratings" : {
+          "type" : "float"
+        }
+      }
+    }
+}
+
+GET /reviews/_mapping
+
 # /!\ mapping does not make fields required /!\ 
 
 # time stored is not the data used to treat time in elastic shearch
