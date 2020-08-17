@@ -1,3 +1,23 @@
+# lucene regexp engine ! (not all features)
+GET /products/_search
+{
+  "query": {
+    "regexp": {
+      "tags.keyword": "Veget[a-zA-Z]+ble"
+    }
+  }
+}
+
+# not in beginning ! (perfomances issue)
+GET /products/_search
+{
+  "query": {
+    "wildcard": {
+      "tags.keyword": "Vege*e"
+    }
+  }
+}
+
 GET /products/_search
 {
   "query": {
