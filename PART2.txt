@@ -1,3 +1,18 @@
+# an alias is just a name change
+
+# WHEN ADDIN PROPS: just properties
+PUT /reviews/_mapping
+{
+      "properties" : {
+        "comment" : {
+          "type" : "alias",
+          "path" : "content"
+        }
+      }
+}
+
+# in reindexing api we can add query in source
+
 # this changes the original values
 # so that we receive the expected values in the new index
 POST /_reindex
