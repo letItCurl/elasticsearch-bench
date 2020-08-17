@@ -1,3 +1,5 @@
+# /!\ mapping does not make fields required /!\ 
+
 # time stored is not the data used to treat time in elastic shearch
 POST /reviews/_doc/2
 {
