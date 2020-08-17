@@ -1,3 +1,46 @@
+GET /multi_field_test/_search
+{
+  "query": {
+    "match": {
+      "ingr": "pates"
+    }
+  }
+}
+
+GET /multi_field_test/_search
+{
+  "query": {
+    "term": {
+      "ingr.keyword": "pates"
+    }
+  }
+}
+
+POST /multi_field_test/_doc
+{
+  "desc": "bla bla pates",
+  "ingr": ["pates", "salade",  "tomate"]
+}
+
+PUT /multi_field_test
+{
+  "mappings": {
+    "properties": {
+      "desc": {
+        "type": "text"
+      },
+      "ingr": {
+        "type": "text",
+        "fields": {
+            "keyword": {
+            "type": "keyword"
+          }
+        }
+      }
+    }
+  }
+}
+
 # an alias is just a name change
 
 # WHEN ADDIN PROPS: just properties
