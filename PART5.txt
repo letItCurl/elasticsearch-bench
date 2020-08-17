@@ -1,3 +1,59 @@
+GET /recipe/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        { "match": {"ingredients.name": "parmesan"} }
+      ],
+      "must_not": [
+        { "match": {"ingredients.name": "tuna"} }
+      ],
+      "filter": [
+        { "range": {"preparation_time_minutes": { "lte": 15 } } }
+      ]
+    }
+  }
+}
+
+# will NOT take in account relevance
+GET /recipe/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        { "match": {"ingredients.name": "parmesan"} }
+      ],
+      "filter": [
+        { "range": {"preparation_time_minutes": { "lte": 15 } } }
+      ]
+    }
+  }
+}
+
+# will take in account relevance
+GET /recipe/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        { "match": {"ingredients.name": "parmesan"} },
+        { "range": {"preparation_time_minutes": { "lte": 15 } } }
+      ]
+    }
+  }
+}
+
+# match in mutiple fields
+GET /recipe/_search
+{
+  "query": {
+    "multi_match": {
+      "query": "pasta",
+      "fields": ["title", "description"]
+    }
+  }
+}
+
 # order matter
 GET /recipe/_search
 {
