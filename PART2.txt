@@ -1,3 +1,29 @@
+# close index to add analizers
+POST /analyser_test/_close
+
+POST /analyser_test/_open
+
+GET /analyser_test/_settings
+
+PUT /analyser_test/_settings
+{
+  "analysis": {
+    "analyzer": {
+       "my_custom_analyser_2": {
+         "type": "custom",
+         "char_filter": ["html_strip"],
+         "tokenizer": "standard",
+         "filter": [
+           "lowercase",
+           "stop",
+           "asciifolding"
+           ]
+       }
+     } 
+  }
+}
+
+
 # custom analyser
 
 PUT /analyser_test_2
