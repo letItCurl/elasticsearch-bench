@@ -1,6 +1,26 @@
 GET /products/_search
 {
   "query": {
+    "exists": {
+      "field": "tags"
+    }
+  }
+}
+
+GET /products/_search
+{
+  "query": {
+    "range": {
+      "created": {
+        "gte": "now-5y-1d"
+      }
+    }
+  }
+}
+
+GET /products/_search
+{
+  "query": {
     "range": {
       "created": {
         "gte": "2010/01/01",
