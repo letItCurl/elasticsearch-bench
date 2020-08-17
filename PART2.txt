@@ -1,3 +1,28 @@
+POST /dyn-temp_test/_doc/2
+{
+  "in_stock": "56"
+}
+
+GET /dyn-temp_test/_doc/1
+
+GET /dyn-temp_test/_mapping
+
+PUT /dyn-temp_test
+{
+  "mappings": {
+    "dynamic_templates": [
+        {
+          "integers": {
+            "match_mapping_type": "long",
+            "mapping": {
+              "type": "integer"
+            }
+          }
+        }
+      ]
+  }
+}
+
 # "dynamic": "strict" => if field is not mapped, then it will be rejected
 
 # if in the creation we add mappings, merge is appliyed and the creation is winner
