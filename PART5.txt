@@ -41,4 +41,4 @@ GET /recipe/_search
   }
 }
 
-curl -H "Content-Type: application/x-ndjson" -XPOST https://bc09c2c6bcae4a5d830f1b15ae0fb0af.francecentral.azure.elastic-cloud.com:9243/recipe/_bulk --data-binary "@test-data.json" -u elastic:i_luv_u
+curl -H "Content-Type: application/x-ndjson" -XPOST end_point --data-binary "@test-data.json" -u elastic:i_luv_u
