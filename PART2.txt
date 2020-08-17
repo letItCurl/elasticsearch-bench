@@ -10,6 +10,8 @@ PUT /analyser_test_2
           "stopwords": "_french_"
         }
       }, 
+      "char_filter": {},
+      "tokenizer": {}, 
      "analyzer": {
        "my_custom_analyser": {
          "type": "custom",
