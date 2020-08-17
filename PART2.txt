@@ -1,4 +1,7 @@
+# "dynamic": "strict" => if field is not mapped, then it will be rejected
+
 # if in the creation we add mappings, merge is appliyed and the creation is winner
+
 PUT /access-logs-2020-01-01
 GET /access-logs-2020-01-01
 PUT /_template/access-logs
