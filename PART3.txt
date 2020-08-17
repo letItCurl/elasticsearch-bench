@@ -1,0 +1,3 @@
+GET /products/_search?q=description:Lobste
+GET /products/_search?q=tags:Meat
+GET /products/_search?q=tags:Meat AND name:Tuna
