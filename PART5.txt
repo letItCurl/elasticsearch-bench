@@ -1,1 +1,44 @@
+GET /recipe/_search
+{
+  "query": {
+    "match": {
+      "title": {
+        "query": "spaghetti pasta", 
+        "operator": "and"
+      }
+    }
+  }
+}
+
+# and condition in all token
+GET /recipe/_search
+{
+  "query": {
+    "match": {
+      "title": {
+        "query": "Recipes with pasta or spag", 
+        "operator": "and"
+      }
+    }
+  }
+}
+
+GET /recipe/_search
+{
+  "query": {
+    "match": {
+      "title": "Recipes with pasta or spag"
+    }
+  }
+}
+
+GET /recipe/_mapping
+
+GET /recipe/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
 curl -H "Content-Type: application/x-ndjson" -XPOST https://bc09c2c6bcae4a5d830f1b15ae0fb0af.francecentral.azure.elastic-cloud.com:9243/recipe/_bulk --data-binary "@test-data.json" -u elastic:i_luv_u
