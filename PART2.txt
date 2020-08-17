@@ -1,3 +1,31 @@
+# if in the creation we add mappings, merge is appliyed and the creation is winner
+PUT /access-logs-2020-01-01
+GET /access-logs-2020-01-01
+PUT /_template/access-logs
+{
+  "index_patterns": ["access-logs-*"],
+  "settings": {
+    "number_of_shards": 2,
+    "index.mapping.coerce": false
+  }, 
+  "mappings": {
+    "properties": {
+      "@time":{
+        "type": "date"
+      },
+      "url.original": {
+        "type": "keyword"
+      },
+      "http.request.referrer": {
+        "type": "keyword"
+      },
+      "http.response.status_code": {
+        "type": "long"
+      }
+    }
+  }
+}
+
 GET /multi_field_test/_search
 {
   "query": {
