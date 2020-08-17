@@ -1,3 +1,13 @@
+# order matter
+GET /recipe/_search
+{
+  "query": {
+    "match_phrase": {
+      "title": "Puttanesca Spaghetti"
+    }
+  }
+}
+
 GET /recipe/_search
 {
   "query": {
