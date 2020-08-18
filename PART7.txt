@@ -1,3 +1,88 @@
+# SORT API
+
+GET /recipe/_search
+{
+  "_source": "ratings",
+  "query": {
+    "match_all": {}
+  },
+  "sort": [
+    { "ratings": { 
+      "order": "asc",
+      "mode": "avg"
+      } 
+    }
+  ]
+}
+
+GET /recipe/_search
+{
+  "_source": ["preparation_time_minutes", "created"],
+  "query": {
+    "match": {"title": "pasta"}
+  },
+  "sort": [
+    { "preparation_time_minutes": { "order": "asc" } },
+    { "created": { "order": "desc" } }
+  ]
+}
+
+GET /recipe/_search
+{
+  "_source": "created",
+  "query": {
+    "match_all": {}
+  },
+  "sort": [
+    { "created": { "order": "desc" } }
+  ]
+}
+
+GET /recipe/_search
+{
+  "_source": false,
+  "query": {
+    "match_all": {}
+  },
+  "sort": [
+    {
+      "preparation_time_minutes": {
+        "order": "asc"
+      }
+    }
+  ]
+}
+
+# from can be used to do pagination
+GET /recipe/_search
+{
+  "size": 2,
+  "from": 2,
+  "_source": "title",
+  "query": {
+    "match_all": {}
+  }
+}
+
+# size of output
+GET /recipe/_search
+{
+  "size": 2,
+  "_source": false,
+  "query": {
+    "match_all": {}
+  }
+}
+
+GET /recipe/_search?size=2
+{
+  "_source": false,
+  "query": {
+    "match_all": {}
+  }
+}
+
+# filtering output of request
 GET /recipe/_search?
 {
   "_source": {
