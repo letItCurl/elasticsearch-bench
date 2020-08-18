@@ -1,5 +1,38 @@
-# query by has_parent or parent_id
+GET /department/_search
+{
+  "query": {
+    "has_child": {
+      "type": "employee",
+      "score_mode": "sum", 
+      "min_children": 1,
+      "max_children": 10, 
+      "query": {
+        "bool":{
+          "must": [
+            {
+              "range": {
+                "age": {
+                  "gte": 50
+                }
+              }
+            }
+          ],
+          "should": [
+            {
+              "term": {
+                "gender.keyword": {
+                  "value": "M"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
 
+# query by has_parent or parent_id
 GET /department/_search
 {
   "query": {
