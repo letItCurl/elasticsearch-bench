@@ -1,0 +1,58 @@
+GET /recipe/_search?
+{
+  "_source": {
+    "includes": "ingredients.*", 
+    "excludes": "ingredients.name"
+  },
+  "query": {
+    "match": {"title": "pasta"}
+  }
+}
+
+GET /recipe/_search?
+{
+  "_source": ["ingredients.*", "servings"],
+  "query": {
+    "match": {"title": "pasta"}
+  }
+}
+
+GET /recipe/_search?
+{
+  "_source": "ingredients", 
+  "query": {
+    "match": {"title": "pasta"}
+  }
+}
+
+GET /recipe/_search?
+{
+  "_source": "ingredients.*", 
+  "query": {
+    "match": {"title": "pasta"}
+  }
+}
+
+GET /recipe/_search?
+{
+  "_source": "ingredients.name", 
+  "query": {
+    "match": {"title": "pasta"}
+  }
+}
+
+GET /recipe/_search?
+{
+  "_source": false, 
+  "query": {
+    "match": {"title": "pasta"}
+  }
+}
+
+#/recipe/_search?pretty will format every thing weel in terminal
+GET /recipe/_search?format=yaml
+{
+  "query": {
+    "match_all": {}
+  }
+}
