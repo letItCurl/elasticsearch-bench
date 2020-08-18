@@ -1,3 +1,167 @@
+# query by has_parent or parent_id
+
+GET /department/_search
+{
+  "query": {
+    "has_parent": {
+      "parent_type": "department",
+      "score": true, 
+      "query": {
+        "term": {
+          "name.keyword": "Development"
+        }
+      }
+    }
+  }
+}
+
+GET /department/_search
+{
+  "query": {
+    "has_parent": {
+      "parent_type": "department",
+      "query": {
+        "term": {
+          "name.keyword": "Development"
+        }
+      }
+    }
+  }
+}
+
+GET /department/_search
+{
+  "query": {
+    "parent_id": {
+      "type": "employee",
+      "id": 2
+    }
+  }
+}
+
+PUT /department/_doc/5?routing=1
+{
+  "name": "James Evans",
+  "age": 32,
+  "gender": "M",
+  "join_field": {
+    "name": "employee",
+    "parent": 1
+  }
+}
+PUT /department/_doc/6?routing=1
+{
+  "name": "Daniel Harris",
+  "age": 52,
+  "gender": "M",
+  "join_field": {
+    "name": "employee",
+    "parent": 1
+  }
+}
+PUT /department/_doc/7?routing=2
+{
+  "name": "Jane Park",
+  "age": 23,
+  "gender": "F",
+  "join_field": {
+    "name": "employee",
+    "parent": 2
+  }
+}
+PUT /department/_doc/8?routing=1
+{
+  "name": "Christina Parker",
+  "age": 29,
+  "gender": "F",
+  "join_field": {
+    "name": "employee",
+    "parent": 1
+  }
+}
+
+PUT /department/_doc/4?routing=2
+{
+  "name": "John Doe",
+  "age": 44,
+  "gender": "M",
+  "join_field": {
+    "name": "employee",
+    "parent": 2
+  }
+}
+
+PUT /department/_doc/3?routing=1
+{
+  "name": "Bo Andersen",
+  "age": 28,
+  "gender": "M",
+  "join_field": {
+    "name": "employee",
+    "parent": 1
+  }
+}
+
+PUT /department/_doc/1
+{
+  "name": "Development",
+  "join_field": "department"
+}
+
+PUT /department/_doc/2
+{
+  "name": "Marketing",
+  "join_field": "department"
+}
+
+PUT /department
+{
+  "mappings": {
+    "properties": {
+      "join_field": {
+        "type": "join",
+        "relations":{
+          "department": "employee"
+        }
+      }
+    }
+  }
+}
+
+# join queries with one doc above
+
+DELETE /department
+
+# find/filter only the end relation and sorted by relevance
+GET /department/_search
+{
+  "_source": false, 
+  "query": {
+    "nested": {
+      "path": "employees",
+      "inner_hits": {}, 
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "employees.position": "intern"
+              }
+            },
+            {
+              "match": {
+              "employees.gender.keyword": "F"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+
+# will work,
+# nested obj save relation of data in array (no arrays offset)
 GET /department/_search
 {
   "query": {
