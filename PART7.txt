@@ -1,5 +1,29 @@
-# SORT API
+GET /recipe/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "title": "pasta"
+          }
+        }
+      ],
+      "filter": [
+        {
+          "range": {
+            "preparation_time_minutes": {
+              "lte": 15
+            }
+          }
+        }
+      ]
+    }
+  }
+}
 
+# SORT API
+# mode will take the avg of an array
 GET /recipe/_search
 {
   "_source": "ratings",
