@@ -1,3 +1,33 @@
+# Take the parent context
+# stats can't have sub aggs
+GET /order/_search
+{
+  "size": 0,
+  "query": {
+    "range": {
+      "total_amount": {
+        "gte": 100
+      }
+    }
+  }, 
+  "aggs": {
+    "status_terms": {
+      "terms": {
+        "field": "status.keyword"
+      },
+      "aggs":{
+        "metric_aggs": {
+          "stats": {
+            "field": "total_amount"
+          }
+        }
+      }
+    }
+  }
+}
+
+###
+
 GET /order/_search
 {
   "size": 0,
