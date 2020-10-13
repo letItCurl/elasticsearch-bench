@@ -1,5 +1,5 @@
 # Elastic search with kibana [![](https://img.shields.io/badge/autor-letItCurl-red.svg)](https://www.linkedin.com/in/roland-lopez-developer/?locale=en_US)
-> 🌊 Just getting started with Elastic search and kibana 🌊
+> Just getting started with Elastic search and kibana 🌊
 
 <img align="center" src="https://user.oc-static.com/upload/2017/10/10/15076639807937_Elasticsearch-Logo-Color-V.jpg.png"/>
 
